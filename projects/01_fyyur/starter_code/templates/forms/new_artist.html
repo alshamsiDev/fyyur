@@ -1,38 +1,106 @@
 {% extends 'layouts/main.html' %}
 {% block title %}New Artist{% endblock %}
 {% block content %}
-  <div class="form-wrapper">
-    <form method="post" class="form">
-      <h3 class="form-heading">List a new artist</h3>
-      <div class="form-group">
-        <label for="name">Name</label>
-        {{ form.name(class_ = 'form-control', autofocus = true) }}
-      </div>
-      <div class="form-group">
-          <label>City & State</label>
-          <div class="form-inline">
+    <div class="form-wrapper">
+        <form class="form" id="form" method="POST" action="{{ url_for('post_artist') }}">
+            {{ form.csrf_token }}
+            <h3 class="form-heading">List a new artist</h3>
             <div class="form-group">
-              {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true) }}
+                <label for="name">Name</label>
+                {{ form.name(class_ = 'form-control', autofocus = true) }}
             </div>
             <div class="form-group">
-              {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true) }}
+                <label>City & State</label>
+                <div class="form-inline">
+                    <div class="form-group">
+                        {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true) }}
+                    </div>
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="form-group">
-          <label for="phone">Phone</label>
-          {{ form.phone(class_ = 'form-control', placeholder='xxx-xxx-xxxx', autofocus = true) }}
-        </div>
-      <div class="form-group">
-        <label for="genres">Genres</label>
-        <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.state, autofocus = true) }}
-      </div>
-      <div class="form-group">
-          <label for="genres">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.state, autofocus = true) }}
-        </div>
-      <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
-    </form>
-  </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                {{ form.phone(class_ = 'form-control', placeholder='xxx-xxx-xxxx', autofocus = true) }}
+            </div>
+            <div class="form-group">
+                <label for="genres">Genres</label>
+                <small>Ctrl+Click to select multiple</small>
+                {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = true) }}
+            </div>
+            <div class="form-group">
+                <label for="genres">Facebook Link</label>
+                {{ form.facebook_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
+            </div>
+            <div class="form-group">
+                <label for="image_link">Website link</label>
+                {{ form.image_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
+            </div>
+            <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
+        </form>
+    </div>
+{% endblock %}
+{% block javascript %}
+    {#    <script>#}
+    {#        const name = document.getElementById('name').value;#}
+    {#        const city = document.getElementById('city').value;#}
+    {#        const state = document.getElementById('state').value;#}
+    {#        const phone = document.getElementById('phone').value;#}
+    {#        let genres = [];#}
+    {#        for (let option of document.getElementById('genres').options) {#}
+    {#            if (option.selected) {#}
+    {#                genres.push(option.value);#}
+    {#            }#}
+    {#        }#}
+    {#        const facebook_link = document.getElementById('facebook_link').value;#}
+    {#        document.getElementById('form').onsubmit = e => {#}
+    {#            e.preventDefault();#}
+    {#            const artist = {#}
+    {#                'name': name,#}
+    {#                'city': city,#}
+    {#                'state': state,#}
+    {#                'phone': phone,#}
+    {#                'genres': genres,#}
+    {#                'facebook_link': facebook_link,#}
+    {#            }#}
+    {#            console.log(artist)#}
+    {#            fetch('/artists/create', {#}
+    {#                method: 'POST',#}
+    {#                body: JSON.stringify(artist),#}
+    {#                headers: {#}
+    {#                    'Content-Type': 'application/json',#}
+    {#                }#}
+    {#            })#}
+    {#                .then((response) => {#}
+    {#                    response.json()#}
+    {#                })#}
+    {#                .then(jsonResponse => {#}
+    {#const li = document.createElement('li');#}
+    {#const checkbox = document.createElement('input');#}
+    {#checkbox.className = 'check-completed';#}
+    {#checkbox.type = 'checkbox';#}
+    {#checkbox.setAttribute('data-id', jsonResponse.id);#}
+    {#li.appendChild(checkbox);#}
+    {##}
+    {#const text = document.createTextNode(' ' + jsonResponse.description);#}
+    {#li.appendChild(text);#}
+    {##}
+    {#const deleteBtn = document.createElement('button');#}
+    {#deleteBtn.className = 'delete-button';#}
+    {#deleteBtn.setAttribute('data-id', jsonResponse.id);#}
+    {#deleteBtn.innerHTML = '&cross;';#}
+    {#li.appendChild(deleteBtn);#}
+    {##}
+    {#document.getElementById('todos').appendChild(li);#}
+    {#document.getElementById('error').className = 'hidden';#}
+    {#                    console.log(jsonResponse)#}
+    {#                    window.location.refresh()#}
+    {#                })#}
+    {#                .catch(function () {#}
+    {#                    console.error('Error occurred');#}
+    {#                })#}
+    {#        }#}
+    {##}
+    {#    </script>#}
 {% endblock %}
